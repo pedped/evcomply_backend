@@ -12,7 +12,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
 
-class SendNewsletterSignupNotification implements ShouldQueue
+class SendNewsletterSignupNotification
 {
 
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
@@ -35,6 +35,6 @@ class SendNewsletterSignupNotification implements ShouldQueue
      */
     public function handle(NewsletterSubscriptionHappened $event)
     {
-        Mail::to($event->getEmailAddress())->send(new NewsletterSignup());
+        Mail::to($event->getEmailAddress())->queue(new NewsletterSignup());
     }
 }
